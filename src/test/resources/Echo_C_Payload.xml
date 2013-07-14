@@ -1,0 +1,5 @@
+<Echo_Payload xmlns="http://schemas.mili.org/ETSVC">
+  <RequestPadding>1234567890</RequestPadding>
+  <SleepMilliseconds>0</SleepMilliseconds>
+  <PayloadSize>40</PayloadSize> 
+</Echo_Payload>

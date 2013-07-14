@@ -1,0 +1,2 @@
+<SvcCltRoutes defaultURLPrefix="amqp://guest:guest@tcp:localhost:5672//mili.direct/" timeout="60">
+</SvcCltRoutes>

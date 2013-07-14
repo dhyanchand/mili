@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <!-- sets up the exchange -->
+    <rabbit:connection-factory  id="rabbitConnection" />
+    <rabbit:admin  connection-factory="rabbitConnection" auto-startup="true"/>
+
+    <rabbit:queue  name="replies" auto-delete="true" durable="false" exclusive="true"></rabbit:queue>
+    <rabbit:template reply-queue="replies"  id="amqpTemplate" connection-factory="rabbitConnection"
+                     exchange="mili.direct" routing-key="submitEchoPayload" queue="amqp_echoPayload">
+            <rabbit:reply-listener/>
+    </rabbit:template>
+
+
+ </beans>

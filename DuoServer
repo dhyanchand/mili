@@ -1,0 +1,3 @@
+# these tests can be only run when you have two servers behind a VIP
+# check the comments in mainVIPTest
+mvn -o exec:java -Dexec.classpathScope=test -Dexec.mainClass=org.mili.amqp.service.DuoServer

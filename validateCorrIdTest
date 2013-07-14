@@ -1,0 +1,17 @@
+# the idea of this test(read as: Validate CorrelationId Test) is at the essence of this module. 
+#
+# usually in a webservice environment, we would be using a fixed "set" of reply-queues
+# the reason for a fixed "set" of reply-queues is that when running tests where reply-queues were
+# created for each req/reply scenario, it takes 5 milliseconds for creating and destroying queues on the broker
+# the danger however is since, clients are borrowed and returned back to the pool, the reply-queues
+# associated with the client might be reused without cleaning up(i.e, clients that timed out might get messages
+# back in the same queue, since the service might have processed it only later.)
+#
+# this is one of the most crucial tests we can run for validating the module.
+# this starts an exponential backoff strategy that essentially does the following:
+# [1] 5 clients send varied payload messages of different sizes: 2,4,6,8 and 40 bytes long 
+# [2] the first 4 clients will timeout in 5ms, the last one in 500ms, and the server waits for 70ms to complete the job 
+# [3] they all use the *same* reply-queue, so the last client would get all the messages after waiting for 500ms
+# [4] so, the 5th client will get all the messages from previous clients  
+# [5]  .. the client will discard all of them and receive the message meant for it.
+mvn -o exec:java -Dexec.mainClass="org.mili.amqp.ValidateCorrIdPayloadTest" -Dexec.classpathScope=test  

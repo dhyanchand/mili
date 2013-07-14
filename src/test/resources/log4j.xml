@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
+
+    <appender name="A1" class="org.apache.log4j.ConsoleAppender"> 
+        <!-- <appender name="A1" class="org.apache.log4j.RollingFileAppender">-->
+        <!--<param name="File" value="logs/service.log"/>-->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%t] %d{dd MMM yyyy HH:mm:ss} %-5p %c %x - %m%n" />
+		</layout>
+	</appender>
+	
+    <appender name="A2" class="org.apache.log4j.FileAppender">
+        <param name="File" value="exception.log"/>
+        <param name="Threshold" value="WARN"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss,SSS} %-4r [%t] %-5p %c %x - %m%n" />
+        </layout>
+    </appender>	
+
+    <logger name="exception">
+		<level value="DEBUG" />
+        <appender-ref ref="A2" />
+    </logger> 
+
+    <logger name="org.mili.amqp">
+		<level value="DEBUG" />
+	</logger>
+
+    <logger name="org.mili.amqp.SimpleObjectPool">
+        <level value="INFO" />
+    </logger>
+
+    <logger name="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer">
+		<level value="INFO" />
+	</logger>
+
+    <logger name="org.springframework.amqp.rabbit.listener.BlockingQueueConsumer">
+		<level value="INFO" />
+	</logger>
+
+    <logger name="org.springframework.amqp">
+		<level value="TRACE" />
+	</logger>
+
+    <logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+    
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="A1" />
+	</root>
+	
+
+</log4j:configuration> 

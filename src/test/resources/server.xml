@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd
+	   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean id="echoPayloadServer" class="org.mili.amqp.service.EchoPayloadService"></bean>
+
+    <listener-container xmlns="http://www.springframework.org/schema/rabbit" acknowledge="auto" concurrency="3"
+                          connection-factory="rabbitConnection"  message-converter="xmlConverter">
+        <listener ref="echoPayloadServer" method="submitEchoPayload"   queue-names="amqp_echoPayload"  />
+    </listener-container>
+
+    <!--  -->
+    <bean id="xmlConverter" class="org.mili.amqp.marshaller.XMLMessageConverter">
+         <property name="marshaller" ref="jaxb"/>
+         <property name="unmarshaller" ref="jaxb"/>
+    </bean>
+
+    <bean id="jaxb" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="contextPaths" ref="contextList"/>
+    </bean>
+
+
+    <util:list id="contextList">
+        <value>org.mili.amqp.schemas</value>
+    </util:list>
+
+    <!-- rabbit stuff -->
+    <!-- sets up the exchange -->
+    <rabbit:connection-factory  id="rabbitConnection" host="127.0.0.1" port="5672" username="guest" password="guest"/>
+    <rabbit:admin  connection-factory="rabbitConnection" auto-startup="true"/>
+    <rabbit:queue  name="amqp_echoPayload" auto-delete="true" durable="false" exclusive="false"></rabbit:queue>
+    <rabbit:direct-exchange name="mili.direct">
+        <rabbit:bindings>
+            <rabbit:binding queue="amqp_echoPayload" key="submitEchoPayload"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+ </beans>

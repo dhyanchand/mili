@@ -1,0 +1,2 @@
+# null payload test
+mvn -o exec:java -Dexec.mainClass="org.mili.amqp.MultiThreadTest" -Dexec.classpathScope=test  

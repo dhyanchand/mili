@@ -1,0 +1,5 @@
+#mvn -o -Dtest=ValidateCorrelationIdTest test -DskipTests=false
+#mvn -o -Dtest=CompletionLoopTest test -DskipTests=false
+#mvn -o -Dtest=SimpleConnManagerTest test -DskipTests=false
+#mvn  -o -Dtest=ReceiveTimeoutTest test -DskipTests=false
+mvn test -DskipTests=false

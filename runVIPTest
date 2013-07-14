@@ -1,0 +1,8 @@
+# to test VIP do the following:
+# 1. start UnoServer(this will register with UnoServer broker, make sure that happens)
+# 2. start DuoServer (this will register with DuoServer broker, make sure that happens)
+# 3. then start the VIPConnectionTest client 
+# 4. bring down broker on either DuoServer or UnoServer
+# 5. check if VIPConnectionTest then connects to the other box
+# run this from any client box
+mvn -o -Dtest=VIPConnectionTest test -DskipTests=false

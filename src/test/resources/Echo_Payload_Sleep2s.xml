@@ -1,0 +1,6 @@
+<Echo_Payload xmlns="http://service.mili.org/echo/schemas">
+  <RequestPadding>2 Second Timeout</RequestPadding>
+  <SleepMilliseconds>2000</SleepMilliseconds>
+  <PayloadSize>5</PayloadSize> 
+</Echo_Payload>
+
