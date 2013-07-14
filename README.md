@@ -30,8 +30,8 @@ Mili is a simple facade for clients to call services served by an AMQP broker wi
     * sets up re-usable reply-queues
 
 * A client class derived from the manager
-    * this pre-configured (with properties in [2])
-    * specify exchange(context), routing-key(service), payload(a message)
+    * each client is preconfigured with a fixed reply-queue
+    * users of the client specify exchange(context), routing-key(service), payload(a message) and encoding
         * a message has two parts: a header and a body.
             * the body is simply a byte array.
             * the header is useful to set the full range of AMQP.Properties and any context information for calling services.
