@@ -5,7 +5,6 @@ Mili is a simple facade for clients to call services served by an AMQP broker wi
 * Prerequisites
     * download rabbitmq from : http://www.rabbitmq.com/download.html
     * follow instructions to run the server. 
-
 * Compiling
     * mvn clean install
 
